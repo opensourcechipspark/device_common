@@ -310,7 +310,30 @@ void rtk_print_cal_info(uint16_t *bt_cal_efuse_cal_sts);
 #endif
 
 /*********************************add for multi patch end**************************/
+#define BT_PCBA_TEST
 
+#ifdef BT_PCBA_TEST
+void single_bt_pcba_test_results(int result)
+{
+    FILE *fp;
+    char name[64];
+    
+    if(result) {
+        strcpy(name, "/data/bt_success.txt"); // 测试成功
+    } else {
+        strcpy(name, "/data/bt_fail.txt");    // 测试失败
+    }
+    
+    //printf("name = %s\n", name);
+    fp = fopen (name, "w");
+    if(fp != NULL) {
+        fclose(fp);
+        //printf("create %s success.\n", name);
+        return;
+    }
+    //printf("create %s fail.\n", name);
+}
+#endif
 
 /*******************************************************************************
 **
@@ -1005,7 +1028,7 @@ void rtk_get_lmp_cback(void *p_mem)
 			rtk_get_eversion();
 		}
 	}
-	
+
 	if (bt_vendor_cbacks)
 	{
 		bt_vendor_cbacks->lpm_cb(status);
@@ -1486,6 +1509,9 @@ DOWNLOAD_FW:
 
 #endif					
                     ALOGI("vendor lib fwcfg completed");
+                    #ifdef BT_PCBA_TEST
+                    single_bt_pcba_test_results(1);
+                    #endif
                     if(buf) {
                         free(buf);
                         buf = NULL;

@@ -1,7 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
 ifeq ($(strip $(BOARD_CONNECTIVITY_MODULE)),\
-      $(filter $(BOARD_CONNECTIVITY_MODULE), rtl8723au rtl8723bu))
+      $(filter $(BOARD_CONNECTIVITY_MODULE), rtl8723au rtl8723bu rtl8761auv))
 
 include $(CLEAR_VARS)
 

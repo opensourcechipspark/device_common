@@ -139,7 +139,7 @@ static int op(bt_vendor_opcode_t opcode, void *param)
 {
     int retval = 0;
 
-    BTVNDDBG("vnd op for %s(%d)", opcodeStr[opcode], opcode);
+    BTVNDDBG("vnd op for (%d)", opcode);
 
     switch(opcode)
     {
